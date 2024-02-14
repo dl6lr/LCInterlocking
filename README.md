@@ -3,6 +3,7 @@
 ![Illustration](docs/imgs/illustration.png)
 
 ## Goal
+Forked from execuc/LCInterlocking!
 This experimental FreeCAD module is used to create interlocking cut parts from 3D to 2D SVG. 
 It was created for laser cutting but can work with CNC router.  
 
@@ -28,19 +29,22 @@ This panel appears when "Laser cut Interlocking" module is selected:
 ### Recommended Install
 [![FreeCAD Addon manager status](https://img.shields.io/badge/FreeCAD%20addon%20manager-available-brightgreen)](https://github.com/FreeCAD/FreeCAD-addons)
 
+Currently this fork is not beinginstallable with the Addon manager. The LCInterlocking available via Addon manager is the original project by execuc!
+
+<details>
+<summary><i>Expand this to read more about installation of original LCInterlocking FreeCAD Addon</i></summary>
 Install this Addon via the builtin [FreeCAD Addon Manager](https://github.com/FreeCAD/FreeCAD-addons#1-builtin-addon-manager).  
 1. Locate LCInterlocking in the Addon Manager
 2. Install
 3. Restart FreeCAD  
 **Result**: 'Laser cut Interlocking' will be available via the workbench dropdown menu.
+</details>
 
 ### Manual Install
-<details>
-<summary><i>Expand this to read more about manual installation of LCInterlocking FreeCAD Addon</i></summary>
   
 1. Download the repository as zip via the Github interface or use `git` to clone the repo via the command line using:  
 ```bash
-  git clone https://github.com/execuc/LCInterlocking .
+  git clone https://github.com/dl6lr/LCInterlocking .
 ```
 2. After the download completes, the module must be moved to the `Mod` subfolder of the Freecad install directory.  
 On Ubuntu 16.04 move the module to `/usr/share/freecad-daily/Mod/`  
@@ -48,7 +52,6 @@ In Windows it will probably be something like `C:\Program Files\FreeCAD\Mod`
 On Debian 9, the Mod directory is in `~/.FreeCAD/Mod/`
 
 3. Restart Freecad and the LCInterlocking module should be detected.
-</details>
 
 ## Troubleshooting Tip
 It is advisable to show the FreeCAD report view and to redirect the python errors to show module warning/error.
