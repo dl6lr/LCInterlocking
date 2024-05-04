@@ -117,10 +117,11 @@ class MakeBox:
         self.form = []
         self.main_widget = QtGui.QWidget()
         self.main_widget.setWindowTitle("Make box")
-        self.parts_vbox = QtGui.QGridLayout(self.main_widget)
+        self.parts_vbox = QtGui.QGridLayout()
+        self.main_widget.setLayout(self.parts_vbox)
         self.form.append(self.main_widget)
 
-        self.preview_button = QtGui.QPushButton('Preview', self.main_widget)
+        self.preview_button = QtGui.QPushButton('Preview')
         self.parts_vbox.addWidget(self.preview_button, 0, 0, 1, 2)
         self.preview_button.clicked.connect(self.preview)
 
@@ -137,12 +138,13 @@ class MakeBox:
         self.param_widget = QtGui.QWidget()
         self.param_widget.setWindowTitle("Parameters")
         self.form.append(self.param_widget)
-        self.params_vlayout = QtGui.QVBoxLayout(self.param_widget)
+        self.params_vlayout = QtGui.QVBoxLayout()
+        self.param_widget.setLayout(self.params_vlayout)
 
-        dim_group_box, grid = self.dim_box_param.get_group_box(self.param_widget)
-        length_group_box, grid = self.general_box_param.get_group_box(self.param_widget)
-        top_group_box, grid = self.top_box_param.get_group_box(self.param_widget)
-        bottom_group_box, grid = self.bottom_box_param.get_group_box(self.param_widget)
+        dim_group_box = self.dim_box_param.get_group_box(self.param_widget)
+        length_group_box = self.general_box_param.get_group_box(self.param_widget)
+        top_group_box = self.top_box_param.get_group_box(self.param_widget)
+        bottom_group_box = self.bottom_box_param.get_group_box(self.param_widget)
 
         self.params_vlayout.addWidget(dim_group_box)
         self.params_vlayout.addWidget(length_group_box)

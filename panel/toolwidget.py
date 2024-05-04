@@ -46,7 +46,7 @@ class ParamWidget(object):
 
     def get_grid(self):
         row_index = 0
-        widgets_grid = QtGui.QGridLayout(self.form)
+        widgets_grid = QtGui.QGridLayout()
         for widget in self.widget_list:
             self.create_item(widget, widgets_grid, row_index)
             row_index += 1
@@ -127,7 +127,7 @@ class ParamWidget(object):
         self.form = widget
         grid = self.get_grid()
         group_box.setLayout(grid)
-        return group_box, grid
+        return group_box
 
     def properties(self):
         return self.object_property
