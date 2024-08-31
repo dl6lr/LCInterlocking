@@ -57,21 +57,23 @@ class LivingHingesPanel:
         self.param_widget = QtGui.QWidget()
         self.param_widget.setWindowTitle("Global parameters")
         self.form.append(self.param_widget)
-        self.params_vlayout = QtGui.QVBoxLayout(self.param_widget)
+        self.params_vlayout = QtGui.QVBoxLayout()
+        self.param_widget.setLayout(self.params_vlayout)
 
-        global_box, grid = self.global_properties_widget.get_group_box(self.param_widget)
+        global_box = self.global_properties_widget.get_group_box(self.param_widget)
         self.params_vlayout.addWidget(global_box)
 
         self.main_con_widget = QtGui.QWidget()
         self.main_con_widget.setWindowTitle("Living hinges")
-        self.parts_vbox = QtGui.QVBoxLayout(self.main_con_widget)
+        self.parts_vbox = QtGui.QVBoxLayout()
+        self.main_con_widget.setLayout(self.parts_vbox)
         self.form.append(self.main_con_widget)
 
-        self.con_button = QtGui.QPushButton('Add connection', self.main_con_widget)
+        self.con_button = QtGui.QPushButton('Add connection')
         self.parts_vbox.addWidget(self.con_button)
         self.con_button.clicked.connect(self.add_connection)
 
-        self.connection_vbox = QtGui.QVBoxLayout(self.param_widget)
+        self.connection_vbox = QtGui.QVBoxLayout()
         self.parts_vbox.addLayout(self.connection_vbox)
 
         self.connection_widget_list = []
@@ -163,7 +165,7 @@ class LivingHingesPanel:
                     self.connection_widget_list[index].get_properties().compute_min_link(link_clearance)
         self.remove_items_widgets()
         for con_widget in self.connection_widget_list:
-            group_box, grid = con_widget.get_group_box(self.main_con_widget)
+            group_box = con_widget.get_group_box(self.main_con_widget)
             self.connection_vbox.addWidget(group_box)
         return
 
@@ -245,17 +247,15 @@ class LivingHingesViewProvider:
     def onChanged(self, vp, prop):
         pass
 
-    def __getstate__(self):
-        ''' When saving the document this object gets stored using Python's cPickle module.
-        Since we have some un-pickable here -- the Coin stuff -- we must define this method
-        to return a tuple of all pickable objects or None.
-        '''
+    def dumps(self):
+        """When saving the document this object gets stored using Python's json module.\
+                Since we have some un-serializable parts here -- the Coin stuff -- we must define this method\
+                to return a tuple of all serializable objects or None."""
         return None
 
-    def __setstate__(self, state):
-        ''' When restoring the pickled object from document we have the chance to set some
-        internals here. Since no data were pickled nothing needs to be done here.
-        '''
+    def loads(self, state):
+        """When restoring the serialized object from document we have the chance to set some internals here.\
+                Since no data were serialized nothing needs to be done here."""
         return None
 
     def attach(self, vobj):

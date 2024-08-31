@@ -196,17 +196,15 @@ class MultipleJoinViewProvider:
     def onChanged(self, vp, prop):
         pass
 
-    def __getstate__(self):
-        ''' When saving the document this object gets stored using Python's cPickle module.
-        Since we have some un-pickable here -- the Coin stuff -- we must define this method
-        to return a tuple of all pickable objects or None.
-        '''
+    def dumps(self):
+        """When saving the document this object gets stored using Python's json module.\
+                Since we have some un-serializable parts here -- the Coin stuff -- we must define this method\
+                to return a tuple of all serializable objects or None."""
         return None
 
-    def __setstate__(self, state):
-        ''' When restoring the pickled object from document we have the chance to set some
-        internals here. Since no data were pickled nothing needs to be done here.
-        '''
+    def loads(self, state):
+        """When restoring the serialized object from document we have the chance to set some internals here.\
+                Since no data were serialized nothing needs to be done here."""
         return None
 
     def attach(self, vobj):

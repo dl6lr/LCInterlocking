@@ -87,7 +87,7 @@ class PartLink(ParamWidget):
         grid.addWidget(title, 1, 0, 1, 2)
         group_box.setLayout(grid)
         group_box.setTitle(self.name)
-        return group_box, grid
+        return group_box
 
 
 class PartsList(object):

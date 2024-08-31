@@ -25,11 +25,11 @@ class PropertiesList():
     def pop(self, index):
         self.lst.pop(index)
 
-    def __getstate__(self):
+    def dumps(self):
         json_string = json.dumps([ob.__dict__ for ob in self.lst])
         return json_string
 
-    def __setstate__(self, state):
+    def loads(self, state):
         self.lst = []
         bckp = json.loads(state)
         for obj in bckp:

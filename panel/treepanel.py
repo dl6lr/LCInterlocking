@@ -74,7 +74,8 @@ class TreePanel(object):
         self.tree_widget = QtGui.QWidget()
         self.tree_widget.setObjectName("TreePanel")
         self.tree_widget.setWindowTitle(title)
-        self.tree_vbox = QtGui.QVBoxLayout(self.tree_widget)
+        self.tree_vbox = QtGui.QVBoxLayout()
+        self.tree_widget.setLayout(self.tree_vbox)
         self.form.append(self.tree_widget)
         self.model = TreeModel()
         self.tree_view_widget = QtGui.QTreeView()
@@ -107,14 +108,14 @@ class TreePanel(object):
         raise ValueError("Must overloaded")
 
     def init_tree_widget(self):
-        v_box = QtGui.QVBoxLayout(self.tree_widget)
-        preview_button = QtGui.QPushButton('Preview', self.tree_widget)
+        v_box = QtGui.QVBoxLayout()
+        preview_button = QtGui.QPushButton('Preview')
         preview_button.clicked.connect(self.abs_preview)
-        self.fast_preview = QtGui.QCheckBox("Fast preview", self.tree_widget)
-        line = QtGui.QFrame(self.tree_widget)
+        self.fast_preview = QtGui.QCheckBox("Fast preview")
+        line = QtGui.QFrame()
         line.setFrameShape(QtGui.QFrame.HLine);
         line.setFrameShadow(QtGui.QFrame.Sunken);
-        h_box = QtGui.QHBoxLayout(self.tree_widget)
+        h_box = QtGui.QHBoxLayout()
         h_box.addWidget(preview_button)
         h_box.addWidget(self.fast_preview)
         v_box.addLayout(h_box)
@@ -122,23 +123,23 @@ class TreePanel(object):
         self.tree_vbox.addLayout(v_box)
 
         # Add part buttons
-        h_box = QtGui.QHBoxLayout(self.tree_widget)
-        add_parts_button = QtGui.QPushButton('Add parts', self.tree_widget)
+        h_box = QtGui.QHBoxLayout()
+        add_parts_button = QtGui.QPushButton('Add parts')
         add_parts_button.clicked.connect(self.add_parts)
-        add_same_part_button = QtGui.QPushButton('Add same parts', self.tree_widget)
+        add_same_part_button = QtGui.QPushButton('Add same parts')
         add_same_part_button.clicked.connect(self.add_same_parts)
         h_box.addWidget(add_parts_button)
         h_box.addWidget(add_same_part_button)
         self.tree_vbox.addLayout(h_box)
         # Add faces buttons
-        h_box = QtGui.QHBoxLayout(self.tree_widget)
-        self.tab_type_box = QtGui.QComboBox(self.tree_widget)
+        h_box = QtGui.QHBoxLayout()
+        self.tab_type_box = QtGui.QComboBox()
         self.tab_type_box.addItems([TabProperties.TYPE_TAB, TabProperties.TYPE_T_SLOT,
                                     TabProperties.TYPE_CONTINUOUS])#, TabProperties.TYPE_FLEX])
         h_box.addWidget(self.tab_type_box)
-        add_faces_button = QtGui.QPushButton('Add faces', self.tree_widget)
+        add_faces_button = QtGui.QPushButton('Add faces')
         add_faces_button.clicked.connect(self.add_tabs)
-        add_same_faces_button = QtGui.QPushButton('Add same faces', self.tree_widget)
+        add_same_faces_button = QtGui.QPushButton('Add same faces')
         add_same_faces_button.clicked.connect(self.add_same_tabs)
         h_box.addWidget(add_faces_button)
         h_box.addWidget(add_same_faces_button)
@@ -147,15 +148,15 @@ class TreePanel(object):
         self.selection_model = self.tree_view_widget.selectionModel()
         self.selection_model.selectionChanged.connect(self.selection_changed)
         self.tree_vbox.addWidget(self.tree_view_widget)
-        remove_item_button = QtGui.QPushButton('Remove item', self.tree_widget)
+        remove_item_button = QtGui.QPushButton('Remove item')
         remove_item_button.clicked.connect(self.remove_items)
         self.tree_vbox.addWidget(remove_item_button)
-        line = QtGui.QFrame(self.tree_widget)
+        line = QtGui.QFrame()
         line.setFrameShape(QtGui.QFrame.HLine)
         line.setFrameShadow(QtGui.QFrame.Sunken)
         self.tree_vbox.addWidget(line)
         # test layout
-        self.edit_items_layout = QtGui.QVBoxLayout(self.tree_widget)
+        self.edit_items_layout = QtGui.QVBoxLayout()
         self.tree_vbox.addLayout(self.edit_items_layout)
 
     def check_parts(self, parts):
@@ -304,7 +305,7 @@ class TreePanel(object):
                 FreeCADGui.Selection.addSelection(fobj)
 
                 self.edited_items.append(widget)
-                groupx_box, grid = widget.get_group_box(self.tree_widget)
+                groupx_box = widget.get_group_box(self.tree_widget)
                 self.edit_items_layout.addWidget(groupx_box)
 
         for index in tab_indexes:
@@ -320,7 +321,7 @@ class TreePanel(object):
             FreeCADGui.Selection.addSelection(fobj, tab.face_name)
 
             self.edited_items.append(widget)
-            groupx_box, grid = widget.get_group_box(self.tree_widget)
+            groupx_box = widget.get_group_box(self.tree_widget)
             self.edit_items_layout.addWidget(groupx_box)
 
         for index in tab_indexes:
@@ -346,24 +347,25 @@ class TreePanel(object):
         self.params_widget = QtGui.QWidget()
         self.params_widget.setObjectName("ParamsPanel")
         self.params_widget.setWindowTitle("Parameters")
-        self.params_vbox = QtGui.QVBoxLayout(self.params_widget)
-        QtGui.QWidget().setLayout(self.params_vbox)
-        parts_vbox = QtGui.QGridLayout(self.params_widget)
-        self.hide_button = QtGui.QPushButton('Hide others', self.params_widget)
+        self.params_vbox = QtGui.QVBoxLayout()
+        self.params_widget.setLayout(self.params_vbox)
+        parts_vbox = QtGui.QGridLayout()
+        self.params_widget.setLayout(parts_vbox)
+        self.hide_button = QtGui.QPushButton('Hide others')
         parts_vbox.addWidget(self.hide_button, 0, 0)
         self.hide_button.clicked.connect(self.hide_others)
-        self.show_button = QtGui.QPushButton('Show all', self.params_widget)
+        self.show_button = QtGui.QPushButton('Show all')
         parts_vbox.addWidget(self.show_button, 0, 1)
         self.show_button.clicked.connect(self.show_initial_objects)
 
-        self.set_transparency_button = QtGui.QPushButton('Set transparent', self.params_widget)
+        self.set_transparency_button = QtGui.QPushButton('Set transparent')
         parts_vbox.addWidget(self.set_transparency_button, 1, 0)
         self.set_transparency_button.clicked.connect(self.set_transparency)
-        self.reset_transparency_button = QtGui.QPushButton('Restore transparent', self.params_widget)
+        self.reset_transparency_button = QtGui.QPushButton('Restore transparent')
         parts_vbox.addWidget(self.reset_transparency_button, 1, 1)
         self.reset_transparency_button.clicked.connect(self.restore_transparency)
 
-        preview_button = QtGui.QPushButton('Preview', self.params_widget)
+        preview_button = QtGui.QPushButton('Preview')
         parts_vbox.addWidget(preview_button,2,0,1,2)
         preview_button.clicked.connect(self.preview)
 

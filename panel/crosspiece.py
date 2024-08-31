@@ -177,17 +177,15 @@ class CrossPieceViewProvider:
     def onChanged(self, vp, prop):
         pass
 
-    def __getstate__(self):
-        ''' When saving the document this object gets stored using Python's cPickle module.
-        Since we have some un-pickable here -- the Coin stuff -- we must define this method
-        to return a tuple of all pickable objects or None.
-        '''
+    def dumps(self):
+        """When saving the document this object gets stored using Python's json module.\
+                Since we have some un-serializable parts here -- the Coin stuff -- we must define this method\
+                to return a tuple of all serializable objects or None."""
         return None
 
-    def __setstate__(self, state):
-        ''' When restoring the pickled object from document we have the chance to set some
-        internals here. Since no data were pickled nothing needs to be done here.
-        '''
+    def loads(self, state):
+        """When restoring the serialized object from document we have the chance to set some internals here.\
+                Since no data were serialized nothing needs to be done here."""
         return None
 
     def attach(self, vobj):
@@ -232,24 +230,24 @@ class CrossPiece(TreePanel):
 
     def init_tree_widget(self):
         #Preview button
-        v_box = QtGui.QVBoxLayout(self.tree_widget)
-        preview_button = QtGui.QPushButton('Preview', self.tree_widget)
+        v_box = QtGui.QVBoxLayout()
+        preview_button = QtGui.QPushButton('Preview')
         preview_button.clicked.connect(self.preview)
-        #self.fast_preview = QtGui.QCheckBox("Fast preview", self.tree_widget)
-        line = QtGui.QFrame(self.tree_widget)
+        #self.fast_preview = QtGui.QCheckBox("Fast preview")
+        line = QtGui.QFrame()
         line.setFrameShape(QtGui.QFrame.HLine);
         line.setFrameShadow(QtGui.QFrame.Sunken);
-        h_box = QtGui.QHBoxLayout(self.tree_widget)
+        h_box = QtGui.QHBoxLayout()
         h_box.addWidget(preview_button)
         #h_box.addWidget(self.fast_preview)
         v_box.addLayout(h_box)
         v_box.addWidget(line)
         self.tree_vbox.addLayout(v_box)
         # Add part buttons
-        h_box = QtGui.QHBoxLayout(self.tree_widget)
-        add_parts_button = QtGui.QPushButton('Add parts', self.tree_widget)
+        h_box = QtGui.QHBoxLayout()
+        add_parts_button = QtGui.QPushButton('Add parts')
         add_parts_button.clicked.connect(self.add_parts)
-        add_same_part_button = QtGui.QPushButton('Add same parts', self.tree_widget)
+        add_same_part_button = QtGui.QPushButton('Add same parts')
         add_same_part_button.clicked.connect(self.add_same_parts)
         h_box.addWidget(add_parts_button)
         h_box.addWidget(add_same_part_button)
@@ -258,11 +256,11 @@ class CrossPiece(TreePanel):
         self.selection_model = self.tree_view_widget.selectionModel()
         self.selection_model.selectionChanged.connect(self.selection_changed)
         self.tree_vbox.addWidget(self.tree_view_widget)
-        remove_item_button = QtGui.QPushButton('Remove item', self.tree_widget)
+        remove_item_button = QtGui.QPushButton('Remove item')
         remove_item_button.clicked.connect(self.remove_items)
         self.tree_vbox.addWidget(remove_item_button)
         # test layout
-        self.edit_items_layout = QtGui.QVBoxLayout(self.tree_widget)
+        self.edit_items_layout = QtGui.QVBoxLayout()
         self.tree_vbox.addLayout(self.edit_items_layout)
 
 class CrossPieceCommand:
