@@ -29,7 +29,7 @@ This panel appears when "Laser cut Interlocking" module is selected:
 ### Recommended Install
 [![FreeCAD Addon manager status](https://img.shields.io/badge/FreeCAD%20addon%20manager-available-brightgreen)](https://github.com/FreeCAD/FreeCAD-addons)
 
-Currently this fork is not beinginstallable with the Addon manager. The LCInterlocking available via Addon manager is the original project by execuc!
+Currently this fork is not being installable with the Addon manager. The LCInterlocking available via Addon manager is the original project by execuc!
 
 <details>
 <summary><i>Expand this to read more about installation of original LCInterlocking FreeCAD Addon</i></summary>
@@ -48,7 +48,7 @@ Install this Addon via the builtin [FreeCAD Addon Manager](https://github.com/Fr
 ```
 2. After the download completes, the module must be moved to the `Mod` subfolder of the Freecad install directory.  
 On Ubuntu 16.04 move the module to `/usr/share/freecad-daily/Mod/`  
-In Windows it will probably be something like `C:\Program Files\FreeCAD\Mod`  
+In Windows it will probably be something like `C:\Program Files\FreeCAD\Mod`  or the user roaming `%APPDATA%\FreeCAD\Mod`
 On Debian 9, the Mod directory is in `~/.FreeCAD/Mod/`
 
 3. Restart Freecad and the LCInterlocking module should be detected.
@@ -67,6 +67,13 @@ If you encounter a bug please participate in the [dedicated FreeCAD discussion t
  * Rounded corner: https://www.youtube.com/watch?v=KSnMxqjA_-Q
  
 ## Changelog
+**v1.5: In progress**
+ * Fix for FreeCAD 0.21 by jcma68
+ * Expand crosspart cases by ondrasy
+ * attempt to coalesce redundant edges by randomdude
+ * remove twice applying interval_ratio for odd number of tabs and allow 3 digits precision for intervall_ratio by bishibashiB
+ * clean up code in helper.py
+
 **v1.4: In progress**
  * Fix for FreeCAD 0.19.
 
